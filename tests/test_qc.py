@@ -16,7 +16,8 @@ def paths():
     data = tests / "data"
     return {"base": base, "tests": tests, "data": data}
 
-#@pytest.mark.skip()
+
+# @pytest.mark.skip()
 def test_qc_init(paths):
     path = paths["data"]
     outs = path / "outs" / "qc"
@@ -27,7 +28,8 @@ def test_qc_init(paths):
     qc.experiment == "xp_1"
     assert_frame_equal(adata.obs, qc.adata.obs)
 
-#@pytest.mark.skip()
+
+# @pytest.mark.skip()
 def test_cell_area_distribution(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -40,14 +42,15 @@ def test_cell_area_distribution(paths):
     assert im1 == im2
 
 
-#@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_remove_unused(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
     qc = QC(adata, "xp-1", outs)
     assert all([not name.startswith("UNUSED") for name in qc.adata.var_names])
 
-#@pytest.mark.skip()
+
+# @pytest.mark.skip()
 def test_calculate_qc_metrics(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -66,13 +69,13 @@ def test_gene_stats(paths):
     qc = QC(adata, "xp-1", outs)
     qc.calculate_qc_metrics()
     qc.gene_stats()
-    im1 = Image.open(outs/ "figures" / "xp_1_genestats.png")
+    im1 = Image.open(outs / "figures" / "xp_1_genestats.png")
     im2 = Image.open(paths["data"] / "figures/xp_1_genestats.png")
 
     assert im1 == im2
 
 
-#@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_genes_per_cell(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -86,7 +89,7 @@ def test_genes_per_cell(paths):
     assert im1 == im2
 
 
-#@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_transcripts_per_cell(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -114,7 +117,7 @@ def test_cell_area_vs_detected_genes(paths):
     assert im1 == im2
 
 
-#@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_segmentation_stats(paths):
     adata = ad.read(paths["data"] / "test.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -123,10 +126,10 @@ def test_segmentation_stats(paths):
     ref_df = pd.read_csv(paths["data"] / "segmentation_stats.csv")
     assert_frame_equal(ref_df, df)
 
-#@pytest.mark.skip()
+
+# @pytest.mark.skip()
 def test_segmentation_stats_no_transcripts(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
     qc = QC(adata, "xp-1", outs, refgene="EEF2")
     assert qc.segmentation_stats() == None
-

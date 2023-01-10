@@ -18,9 +18,12 @@
 - module: filter
   arguments:
     adata_in: /workspace/postal/tests/data/test_after_qc.h5ad
-    adata_out: /tmp/use_mads.h5ad
-    use_mads: True
-    mads_factor: 3
+    adata_out: /tmp/manual_filter.h5ad 
+    use_mads: False
+    min_counts: 100
+    max_counts: 500
+    min_genes: 1
+    max_genes: 100
 
 - module: latent
   arguments:

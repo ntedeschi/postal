@@ -25,7 +25,9 @@ class QC:
         Gene used as high expressor reference.
     """
 
-    def __init__(self, adata: ad.AnnData, experiment: str, outs: Path, refgene: str = "EEF2"):
+    def __init__(
+        self, adata: ad.AnnData, experiment: str, outs: Path, refgene: str = "EEF2"
+    ):
         self.adata = adata.copy()
         self.experiment = experiment
         self.experiment = self.experiment.replace(" ", "_")
@@ -443,4 +445,3 @@ class QC:
         )
 
         return df
-

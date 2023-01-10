@@ -1,7 +1,8 @@
 from dataclasses import dataclass
+import numpy as np
 from pathlib import Path
 from typing import Dict, Optional
-import yaml
+import yaml  # type: ignore
 
 
 @dataclass
@@ -48,10 +49,46 @@ def read_qc(d: Dict):
     return qc
 
 
-
 @dataclass
 class FilterConfig:
-    pass
+    adata_in: Path
+    adata_out: Path
+    use_mads: bool = True
+    mads_factor: Optional[np.float64] = None
+    min_counts: Optional[int] = None
+    max_counts: Optional[int] = None
+    min_genes: Optional[int] = None
+    max_genes: Optional[int] = None
+
+
+def read_filter(d: Dict):
+    a = d["arguments"]
+    use_mads = a["use_mads"]
+    if use_mads:
+        mads_factor = a["mads_factor"]
+        min_counts = None
+        max_counts = None
+        min_genes = None
+        max_genes = None
+    else:
+        mads_factor = None
+        min_counts = a["min_counts"]
+        max_counts = a["max_counts"]
+        min_genes = a["min_genes"]
+        max_genes = a["max_genes"]
+
+    ft = FilterConfig(
+        Path(a["adata_in"]),
+        Path(a["adata_out"]),
+        use_mads,
+        mads_factor,
+        min_counts,
+        max_counts,
+        min_genes,
+        max_genes,
+    )
+
+    return ft
 
 
 @dataclass
@@ -92,7 +129,6 @@ class ClusterConfig:
     key_added: str
 
 
-
 def read_cluster(d: Dict):
     a = d["arguments"]
     if a["method"] == "leiden":
@@ -122,7 +158,7 @@ class SCVIConfig:
 class PostalConfig:
     mkad: Optional[MKADConfig] = None
     qc: Optional[QCConfig] = None
-    filtering: Optional[FilterConfig] = None
+    filterc: Optional[FilterConfig] = None
     latent: Optional[LatentConfig] = None
     cluster: Optional[ClusterConfig] = None
     normalization: Optional[NormalizationConfig] = None
@@ -141,6 +177,8 @@ def read_config(path: Path):
             pc.mkad = read_mkad(d)
         if m == "qc":
             pc.qc = read_qc(d)
+        if m == "filter":
+            pc.filterc = read_filter(d)
         if m == "latent":
             pc.latent = read_latent(d)
         if m == "cluster":

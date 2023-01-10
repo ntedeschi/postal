@@ -65,4 +65,3 @@ def add_probe_type(adata: ad.AnnData, f: Path) -> None:
     s = _serial_names(f)
     adata.var["barcode"] = adata.var.index.isin(b["gene_name"])
     adata.var["serial"] = adata.var.index.isin(s["gene_name"])
-

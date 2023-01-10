@@ -8,7 +8,13 @@ import pytest
 import scanpy as sc
 from scipy import stats
 
-from postal.filter import filter_with_mads, _filter_cells_by_detected_genes, _filter_cells_by_transcript_counts, filter_manually
+from postal.filter import (
+    filter_with_mads,
+    _filter_cells_by_detected_genes,
+    _filter_cells_by_transcript_counts,
+    filter_manually,
+)
+
 
 @pytest.fixture()
 def paths():
@@ -17,10 +23,12 @@ def paths():
     data = tests / "data"
     return {"base": base, "tests": tests, "data": data}
 
+
 @pytest.fixture()
 def get_adata(paths):
     adata = ad.read(paths["data"] / "test_after_qc.h5ad")
     return adata
+
 
 def test_mads():
     x = np.array(range(100))
@@ -50,7 +58,6 @@ def test_mads():
     assert (min_x, max_x) == (1, 25049)
 
 
-
 def test_filter_cells_by_transcript_counts(get_adata):
     adata = get_adata.copy()
     assert adata.shape == (40954, 715)
@@ -67,8 +74,8 @@ def test_filter_cells_by_detected_genes(get_adata):
     assert adata.shape == (40954, 715)
 
     _filter_cells_by_detected_genes(adata, min_genes=20, max_genes=100)
-#    sc.pp.filter_cells(adata, max_genes=100)
-#    sc.pp.filter_cells(adata, min_genes=20)
+    #    sc.pp.filter_cells(adata, max_genes=100)
+    #    sc.pp.filter_cells(adata, min_genes=20)
 
     assert adata.shape == (14426, 715)
 
@@ -80,7 +87,7 @@ def test_filter_with_mads(get_adata):
     mads_factor = 3
     filter_with_mads(adata, mads_factor)
 
-    assert adata.shape  == (38943, 715)
+    assert adata.shape == (38943, 715)
 
 
 def test_filter_manually(get_adata):
@@ -95,6 +102,4 @@ def test_filter_manually(get_adata):
         max_genes=100,
     )
 
-    assert adata.shape  == (11698, 715)
-
-
+    assert adata.shape == (11698, 715)
