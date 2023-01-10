@@ -1,0 +1,13 @@
+QC.segmentation_stats(),
+
+Calculate the number of genes that are not in the decode file.
+This requires the input of the decode.hdf5.  Should decode.hdf5
+be an argument to the function, or be a member of the QC class?
+
+transcripts = adata.uns['transcripts']
+# Get the gene names which have transcripts in cells.
+in_cell = transcripts.loc[transcripts['cell'] != 0]['gene_name']
+if genes < len(decode_df):
+	diff = len(decode_df) = genes
+
+
