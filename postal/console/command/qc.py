@@ -37,4 +37,4 @@ class QCCommand(Command):
         qc.cell_area_vs_detected_genes()
 #        qc.segmentation_stats()
         
-        qc.adata.write(outs / f"{experiment}_qc.h5ad")
+        qc.adata.write(outs / "qc.h5ad")
