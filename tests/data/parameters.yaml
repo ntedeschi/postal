@@ -1,0 +1,15 @@
+---
+- command: mkad
+  arguments:
+    counts_file: "/workspace/postal/tests/data/counts.csv"
+    cell_data_file: "/workspace/postal/tests/data/cell_data.csv"
+    transcript_data_file: "/workspace/postal/tests/data/transcript_data.csv"
+
+- command: scvi
+  - command: train
+    arguments: null
+  - command: de
+
+- commmand: cluster
+  arguments:
+    resolution: 0.8

@@ -1,0 +1,32 @@
+---
+- module: mkad
+  arguments:
+    counts_file: /Users/neil/Projects/postal/tests/data/counts.csv
+    cell_data_file: /Users/neil/Projects/postal/tests/data/cell_data.csv
+    transcript_data_file: /Users/neil/Projects/postal/tests/data/transcript_data.csv
+    decode_file: /Users/neil/Projects/postal/tests/data/decode.hdf5
+    anndata_file: /Users/neil/Projects/postal/tests/data/outs/test.h5ad
+
+
+- module: latent
+  arguments:
+    method: scvi
+    adata_in: /Users/neil/Projects/postal/tests/data/test.h5ad
+    adata_out: /Users/neil/Projects/postal/tests/data/outs/test_latent.h5ad
+    n_layers: 2
+    n_latent: 3 
+    model_path: /Users/neil/Projects/postal/tests/data/outs/vae.model
+    obsm_col: X_svci
+    use_gpu: True
+
+
+- module: cluster
+  arguments:
+    method: leiden
+    adata_in: /Users/neil/Projects/postal/tests/data/test.h5ad
+    adata_out: /Users/neil/Projects/postal/tests/data/outs/test_cluster.h5ad
+    neighborhood: 100
+    resolution: 0.5
+...
+
+
