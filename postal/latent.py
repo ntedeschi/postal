@@ -1,6 +1,13 @@
 import anndata as ad
 from pathlib import Path
-import scvi
+import warnings
+from lightning_lite.utilities.rank_zero import LightningDeprecationWarning
+with warnings.catch_warnings():
+    warnings.filterwarnings(
+        action="ignore",
+        module="pytorch_lightning"
+    )
+    import scvi
 
 
 def method_scvi(
