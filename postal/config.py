@@ -19,12 +19,48 @@ class MKADConfig:
 
 def read_mkad(d: Dict):
     a = d["arguments"]
+
+    if not "counts_file" in a:
+        raise ValueError("mkad: missing 'counts_file' argument.  Check yaml file.")
+
+    if not "cell_data_file" in a:
+        raise ValueError("mkad: missing 'cell_data_file' argument.  Check yaml file.")
+
+    if not "transcript_data_file" in a:
+        raise ValueError("mkad: missing 'transcript_data_file' argument.  Check yaml file.")
+
+    if not "decode_file" in a:
+        raise ValueError("mkad: missing 'decode_file' argument.  Check yaml file.")
+
+    if not "outs" in a:
+        raise ValueError("mkad: missing 'outs' argument.  Check yaml file.")
+
+    counts_file = Path(a["counts_file"])
+    if not counts_file.exists():
+        raise FileNotFoundError(f"{counts_file} does not exist")
+
+    cell_data_file = Path(a["cell_data_file"])
+    if not cell_data_file.exists():
+        raise FileNotFoundError(f"{cell_data_file} does not exist")
+
+    transcript_data_file = Path(a["transcript_data_file"])
+    if not transcript_data_file.exists():
+        raise FileNotFoundError(f"{transcript_data_file} does not exist")
+
+    decode_file = Path(a["decode_file"])
+    if not decode_file.exists():
+        raise FileNotFoundError(f"{decode_file} does not exist")
+
+    outs = Path(a["outs"])
+    if not outs.exists():
+        outs.mkdir(parents=True)
+
     mkad = MKADConfig(
-        Path(a["counts_file"]),
-        Path(a["cell_data_file"]),
-        Path(a["transcript_data_file"]),
-        Path(a["decode_file"]),
-        Path(a["outs"]),
+        counts_file,
+        cell_data_file,
+        transcript_data_file,
+        decode_file,
+        outs,
         a["anndata_file"],
     )
     return mkad
@@ -40,12 +76,33 @@ class QCConfig:
 
 def read_qc(d: Dict):
     a = d["arguments"]
+    if not "experiment" in a:
+        raise ValueError("qc: missing 'experiment' argument.  Check yaml file.")
+
+    if not "adata_in" in a:
+        raise ValueError("qc: missing 'adata_in' argument.  Check yaml file.")
+
+    if not "outs" in a:
+        raise ValueError("qc: missing 'outs' argument.  Check yaml file.")
+
+    if not "refgene" in a:
+        raise ValueError("qc: missing 'refgene' argument.  Check yaml file.")
+
+    adata_in = Path(a["adata_in"])
+    if not adata_in.exists():
+        raise FileNotFoundError(f"qc: 'adata_in = {adata_in} does not exist")
+
+    outs = Path(a["outs"])
+    if not outs.exists():
+        outs.mkdir()
+
     qc = QCConfig(
-        Path(a["adata_in"]),
+        adata_in,
         a["experiment"],
         a["refgene"],
-        Path(a["outs"]),
+        outs,
     )
+
     return qc
 
 
@@ -165,23 +222,26 @@ class PostalConfig:
     scvi: Optional[SCVIConfig] = None
 
 
-def read_config(path: Path):
+def read_config(module, path: Path):
     with open(path, mode="rt", encoding="utf-8") as f:
         ds = yaml.safe_load(f)
 
+    for d in ds:
+        if d["module"] == module:
+            arguments = d
+            break
+
     pc = PostalConfig()
 
-    for d in ds:
-        m = d["module"]
-        if m == "mkad":
-            pc.mkad = read_mkad(d)
-        if m == "qc":
-            pc.qc = read_qc(d)
-        if m == "filter":
-            pc.filterc = read_filter(d)
-        if m == "latent":
-            pc.latent = read_latent(d)
-        if m == "cluster":
-            pc.cluster = read_cluster(d)
+    if module == "mkad":
+        pc.mkad = read_mkad(arguments)
+    if module == "qc":
+        pc.qc = read_qc(arguments)
+    if module == "filter":
+        pc.filterc = read_filter(arguments)
+    if module == "latent":
+        pc.latent = read_latent(arguments)
+    if module == "cluster":
+        pc.cluster = read_cluster(arguments)
 
     return pc

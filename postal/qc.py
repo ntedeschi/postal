@@ -36,8 +36,6 @@ class QC:
         self.figdir = self.outs / "figures"
         self.refgene = refgene
 
-        if not self.outs.exists():
-            self.outs.mkdir()
         if not self.figdir.exists():
             self.figdir.mkdir()
 

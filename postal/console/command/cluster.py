@@ -21,7 +21,7 @@ class ClusterCommand(Command):
     ]
 
     def handle(self):
-        pc = read_config(self.argument("config_file"))
+        pc = read_config("cluster", self.argument("config_file"))
         config = pc.cluster
         adata = ad.read(config.adata_in)
         if config.method == "leiden":

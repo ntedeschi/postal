@@ -21,7 +21,7 @@ class QCCommand(Command):
     ]
 
     def handle(self):
-        pc = read_config(self.argument("config_file"))
+        pc = read_config("qc", self.argument("config_file"))
         config = pc.qc
         adata = ad.read(config.adata_in)
         outs = config.outs

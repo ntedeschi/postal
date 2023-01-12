@@ -22,7 +22,7 @@ class FilterCommand(Command):
     ]
 
     def handle(self):
-        pc = read_config(self.argument("config_file"))
+        pc = read_config("filter", self.argument("config_file"))
         config = pc.filterc
         adata = ad.read(config.adata_in)
         if config.use_mads:

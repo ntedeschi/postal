@@ -10,4 +10,5 @@ in_cell = transcripts.loc[transcripts['cell'] != 0]['gene_name']
 if genes < len(decode_df):
 	diff = len(decode_df) = genes
 
+Check arguments and file existence for rest of read_x in config.py
 

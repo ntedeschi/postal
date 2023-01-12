@@ -26,7 +26,7 @@ class MKADCommand(Command):
     ]
 
     def handle(self):
-        pc = read_config(self.argument("config_file"))
+        pc = read_config("mkad", self.argument("config_file"))
         config = pc.mkad
         counts = read_counts(config.counts_file)
         celldata = read_celldata(config.cell_data_file)
@@ -35,7 +35,5 @@ class MKADCommand(Command):
         add_probe_type(adata, config.decode_file)
 
         outs = config.outs
-        if not outs.exists():
-            outs.mkdir(parents=True)
         adata.write(outs / config.anndata_file)
 

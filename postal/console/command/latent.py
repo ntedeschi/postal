@@ -21,7 +21,7 @@ class LatentCommand(Command):
     ]
 
     def handle(self):
-        pc = read_config(self.argument("config_file"))
+        pc = read_config("latent", self.argument("config_file"))
         config = pc.latent
         adata = ad.read(config.adata_in)
         if config.method == "scvi":
