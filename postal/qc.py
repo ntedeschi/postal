@@ -25,6 +25,7 @@ class QC:
         Gene used as high expressor reference.
     """
 
+    
     def __init__(
         self, adata: ad.AnnData, experiment: str, outs: Path, refgene: str = "EEF2"
     ):
@@ -40,8 +41,19 @@ class QC:
             self.figdir.mkdir()
 
         self._remove_unused()
-        self.barcode = self.adata[:, self.adata.var["barcode"]].copy()
-        self.serial = self.adata[:, self.adata.var["serial"]].copy()
+
+        if "barcode" in self.adata.var:
+            self.barcode = self.adata[:, self.adata.var["barcode"]].copy()
+        else:
+            # REFACTOR:  A work around for now.
+            self.barcode = self.adata.copy()
+
+        if "serial" in self.adata.var:
+            self.serial = self.adata[:, self.adata.var["serial"]].copy()
+        else:
+            # REFACTOR:  A work around for now.
+            self.serial = self.adata.copy()
+
 
     def cell_area_distribution(self):
         """
