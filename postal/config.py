@@ -22,40 +22,38 @@ def read_mkad(d: Dict):
 
     if not "counts_file" in a:
         raise ValueError("mkad: missing 'counts_file' argument.  Check yaml file.")
+    else:
+        counts_file = Path(a["counts_file"])
+        if not counts_file.exists():
+            raise FileNotFoundError(f"counts file '{counts_file}' does not exist")
 
     if not "cell_data_file" in a:
         raise ValueError("mkad: missing 'cell_data_file' argument.  Check yaml file.")
-
-    if not "transcript_data_file" in a:
-        raise ValueError("mkad: missing 'transcript_data_file' argument.  Check yaml file.")
-
-    if not "decode_file" in a:
-        raise ValueError("mkad: missing 'decode_file' argument.  Check yaml file.")
-
-    if not "outs" in a:
-        raise ValueError("mkad: missing 'outs' argument.  Check yaml file.")
-
-    counts_file = Path(a["counts_file"])
-    if not counts_file.exists():
-        raise FileNotFoundError(f"counts file '{counts_file}' does not exist")
-
-    cell_data_file = Path(a["cell_data_file"])
-    if not cell_data_file.exists():
-        raise FileNotFoundError(f"cell data file '{cell_data_file}' does not exist")
+    else: 
+        cell_data_file = Path(a["cell_data_file"])
+        if not cell_data_file.exists():
+            raise FileNotFoundError(f"mkad: cell data file '{cell_data_file}' does not exist")
     
-    if a["transcript_data_file"] == "":
+    if not "transcript_data_file" in a:
+        transcript_data_file = None
+    elif a["transcript_data_file"] == "":
         transcript_data_file = None
     else:
         transcript_data_file = Path(a["transcript_data_file"])
 
-    if a["decode_file"] == "":
+    if not "decode_file" in a:
+        decode_file = None
+    elif a["decode_file"] == "":
         decode_file = None
     else:
         decode_file = Path(a["decode_file"])
 
-    outs = Path(a["outs"])
-    if not outs.exists():
-        outs.mkdir(parents=True)
+    if not "outs" in a:
+        raise ValueError("mkad: missing 'outs' argument.  Check yaml file.")
+    else:
+        outs = Path(a["outs"])
+        if not outs.exists():
+            outs.mkdir(parents=True)
 
     mkad = MKADConfig(
         counts_file,

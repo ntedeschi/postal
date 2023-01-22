@@ -23,7 +23,6 @@ def read_celldata(f: Path) -> pd.DataFrame:
 
 
 def read_transcripts(trxfile: Optional[Path]) -> Optional[pd.DataFrame]:
-    print(f"read transcripts: {trxfile}")
     if trxfile is None:
         return None
 
