@@ -15,7 +15,8 @@ def linux_paths():
 def test_read_mkad_config(linux_paths):
     path = linux_paths["data"]
     file = path / "config.yaml"
-    pc = read_config(file)
+
+    pc = read_config("mkad", file)
     mkad = pc.mkad
     assert mkad.counts_file == path / "counts.csv"
     assert mkad.cell_data_file == path / "cell_data.csv"

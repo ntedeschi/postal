@@ -37,19 +37,21 @@ def read_mkad(d: Dict):
 
     counts_file = Path(a["counts_file"])
     if not counts_file.exists():
-        raise FileNotFoundError(f"{counts_file} does not exist")
+        raise FileNotFoundError(f"counts file '{counts_file}' does not exist")
 
     cell_data_file = Path(a["cell_data_file"])
     if not cell_data_file.exists():
-        raise FileNotFoundError(f"{cell_data_file} does not exist")
+        raise FileNotFoundError(f"cell data file '{cell_data_file}' does not exist")
+    
+    if a["transcript_data_file"] == "":
+        transcript_data_file = None
+    else:
+        transcript_data_file = Path(a["transcript_data_file"])
 
-    transcript_data_file = Path(a["transcript_data_file"])
-    if not transcript_data_file.exists():
-        raise FileNotFoundError(f"{transcript_data_file} does not exist")
-
-    decode_file = Path(a["decode_file"])
-    if not decode_file.exists():
-        raise FileNotFoundError(f"{decode_file} does not exist")
+    if a["decode_file"] == "":
+        decode_file = None
+    else:
+        decode_file = Path(a["decode_file"])
 
     outs = Path(a["outs"])
     if not outs.exists():
