@@ -4,3 +4,4 @@ __pycache__
 /secrets
 scratch/
 tags
+terraform.tfstate.backup
