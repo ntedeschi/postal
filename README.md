@@ -2,7 +2,11 @@
 initial post-analysis of seqFish data.   It consists of the following modules:
 
 1.  `mkad`  Make an anndata object from seqFish output.
-2.  
+2.  `qc`  Run QC on anndata object.
+3. `filter`   Filter cells and genes.
+4. `latent`  Calcuate latent representation of cell data.
+5. `cluster`  Cluster cells.
+
 ## Install postal
 
 1.  Install [poetry](https://python-poetry.org/docs/)
