@@ -29,7 +29,16 @@ poetry --version
 poetry install
 ```
 
-4.  Test
+## Test
+
+To run the tests, you need to pull the test data using `git lfs`.  First install
+[git-lfs](https://git-lfs.com/).  Then pull down the test data:
+
+```shell
+git lfs pull
+```
+
+Run the tests:
 
 ```shell
 pytest
