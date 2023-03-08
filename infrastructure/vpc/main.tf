@@ -28,8 +28,8 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-resource "aws_security_group" "sg-home" {
-  name = "ansible-sg-home"
+resource "aws_security_group" "security-group" {
+  name = "postal-security-group"
   vpc_id = aws_vpc.vpc.id
 
   ingress {
@@ -52,8 +52,8 @@ resource "aws_security_group" "sg-home" {
   }
 }
 
-resource "aws_security_group" "sg-internal" {
-  name = "ansible-sg-internel"
+resource "aws_security_group" "internal-security-group" {
+  name = "postal-internel-security-group"
   vpc_id = aws_vpc.vpc.id
 
   ingress {

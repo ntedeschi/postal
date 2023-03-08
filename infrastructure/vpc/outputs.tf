@@ -1,5 +1,5 @@
 output "security_groups" {
-  value = [aws_security_group.sg-home.id, aws_security_group.sg-internal.id]
+  value = [aws_security_group.security-group.id, aws_security_group.internal-security-group.id]
 }
 
 output "subnet_id" {

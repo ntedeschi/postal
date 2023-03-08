@@ -1,5 +1,5 @@
 variable "vpc_name" {
-  default = "ntedeschi-postal-vpc"
+  default = "postal-vpc"
 }
 
 variable cidr_blocks {
@@ -16,9 +16,9 @@ variable "availability_zone" {
 }
 
 variable "key_name" {
-  default = "ntedeschi-postal-key"
+  default = "postal-key"
 }
 
 variable "public_key" {
-  default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICWIEGgdPU22EOadL/z9Tk1WksQG8dtf3lmYEfg/ZBah neil@Neils-Air"
+  default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINBhsGV3MaUheDL/PzR1GY/QvWmk5gpqhNBAUdjq4sjq ntedeschi@protonmail.com"
 }
