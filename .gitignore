@@ -5,3 +5,9 @@ __pycache__
 scratch/
 tags
 terraform.tfstate.backup
+app.json
+appearance.json
+core-plugins-migration.json
+core-plugins.json
+hotkeys.json
+workspace.json
