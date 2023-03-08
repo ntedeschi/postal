@@ -44,7 +44,7 @@ following entry:
     transcript_data_file:  your_transcript_data.csv
     decode_file: your_decode.hdf5
     outs:  your_output_directory
-	anndata_file:  your_output_anndata.h5ad
+    anndata_file:  your_output_anndata.h5ad
 ```
 
 List the available subcommands:
