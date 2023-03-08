@@ -32,7 +32,14 @@ poetry install
 ## Test
 
 To run the tests, you need to pull the test data using `git lfs`.  First install
-[git-lfs](https://git-lfs.com/).  Then pull down the test data:
+[git-lfs](https://git-lfs.com/).  On rocky linux, for example, 
+
+```shell
+sudo dnf install -y epel-release
+sudo dnf install -y git-lfs
+```
+
+Pull down the test data:
 
 ```shell
 git lfs pull
