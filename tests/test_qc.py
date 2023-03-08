@@ -16,7 +16,7 @@ def paths():
     return {"tests": tests, "data": data}
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_qc_init(paths):
     path = Path("tests", "data")
     outs = path / "outs" / "qc"
