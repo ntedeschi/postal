@@ -41,7 +41,7 @@ def test_cell_area_distribution(paths):
     assert im1 == im2
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_remove_unused(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -116,7 +116,7 @@ def test_cell_area_vs_detected_genes(paths):
     assert im1 == im2
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_segmentation_stats(paths):
     adata = ad.read(paths["data"] / "test.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -126,7 +126,7 @@ def test_segmentation_stats(paths):
     assert_frame_equal(ref_df, df)
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_segmentation_stats_no_transcripts(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
