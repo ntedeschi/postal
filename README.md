@@ -9,23 +9,29 @@ initial post-analysis of seqFish data.   It consists of the following modules:
 
 ## Install postal
 
-1.  Install [poetry](https://python-poetry.org/docs/)
+1.  Make a conda environment:
 
+```shell
+conda create -n postal python=3.10
+conda activate postal
 ```
-curl -sSL https://install.python-poetry.org | python3 -
 
+2.  Install [poetry](https://python-poetry.org/docs/)
+
+```shell
+curl -sSL https://install.python-poetry.org | python3 -
 poetry --version
 ```
 
-2.  Install postal
+3.  Install postal
 
-```
+```shell
 poetry install
 ```
 
-3.  Test
+4.  Test
 
-```
+```shell
 pytest
 ```
 
