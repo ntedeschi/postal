@@ -17,15 +17,14 @@ def tester() -> CommandTester:
 
 
 @pytest.fixture()
-def linux_paths():
-    base = Path("/workspace/postal")
-    tests = base / "tests"
+def paths():
+    tests = Path("tests")
     data = tests / "data"
-    return {"base": base, "tests": tests, "data": data}
+    return {"tests": tests, "data": data}
 
 
-def test_scvi(tester, linux_paths):
-    path = linux_paths['data']
+def test_scvi(tester, paths):
+    path = paths['data']
     config_file = path / "config.yaml"
     model_dir = path / "outs" / "vae.model"
     if model_dir.exists():

@@ -19,16 +19,15 @@ def tester() -> CommandTester:
     return CommandTester(command)
 
 @pytest.fixture()
-def linux_paths():
-    base = Path("/workspace/postal")
-    tests = base / "tests"
+def paths():
+    tests = Path("tests")
     data = tests / "data"
-    return {"base": base, "tests": tests, "data": data}
+    return {"tests": tests, "data": data}
 
 
 @pytest.mark.skip()
-def test_qc(tester, linux_paths):
-    paths = linux_paths
+def test_qc(tester, paths):
+    paths = paths
     path = paths['data']
     config_file = path / "config.yaml"
     tester.execute(args=f"{config_file}")

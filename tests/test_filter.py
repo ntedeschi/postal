@@ -18,10 +18,9 @@ from postal.filter import (
 
 @pytest.fixture()
 def paths():
-    base = Path("/workspace/postal")
-    tests = base / "tests"
+    tests = Path("tests")
     data = tests / "data"
-    return {"base": base, "tests": tests, "data": data}
+    return {"tests": tests, "data": data}
 
 
 @pytest.fixture()

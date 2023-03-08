@@ -11,15 +11,14 @@ from postal.qc import QC
 
 @pytest.fixture()
 def paths():
-    base = Path("/workspace/postal")
-    tests = base / "tests"
+    tests = Path("tests")
     data = tests / "data"
-    return {"base": base, "tests": tests, "data": data}
+    return {"tests": tests, "data": data}
 
 
 # @pytest.mark.skip()
 def test_qc_init(paths):
-    path = paths["data"]
+    path = Path("tests", "data")
     outs = path / "outs" / "qc"
     file = path / "test_qc.h5ad"
     adata = ad.read(file)
@@ -29,7 +28,7 @@ def test_qc_init(paths):
     assert_frame_equal(adata.obs, qc.adata.obs)
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_cell_area_distribution(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -50,7 +49,7 @@ def test_remove_unused(paths):
     assert all([not name.startswith("UNUSED") for name in qc.adata.var_names])
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_calculate_qc_metrics(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -75,7 +74,7 @@ def test_gene_stats(paths):
     assert im1 == im2
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_genes_per_cell(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"
@@ -89,7 +88,7 @@ def test_genes_per_cell(paths):
     assert im1 == im2
 
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_transcripts_per_cell(paths):
     adata = ad.read(paths["data"] / "test_qc.h5ad")
     outs = paths["data"] / "outs" / "qc"

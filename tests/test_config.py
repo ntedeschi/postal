@@ -4,16 +4,8 @@ import pytest
 from postal.config import read_config
 
 
-@pytest.fixture()
-def linux_paths():
-    base = Path("/workspace/postal")
-    tests = base / "tests"
-    data = tests / "data"
-    return {"base": base, "tests": tests, "data": data}
-
-
-def test_read_mkad_config(linux_paths):
-    path = linux_paths["data"]
+def test_read_mkad_config():
+    path = Path("tests", "data")
     file = path / "config.yaml"
 
     pc = read_config("mkad", file)

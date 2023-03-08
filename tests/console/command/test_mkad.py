@@ -20,15 +20,14 @@ def tester() -> CommandTester:
     return CommandTester(command)
 
 @pytest.fixture()
-def linux_paths():
-    base = Path("/workspace/postal")
-    tests = base / "tests"
+def paths():
+    tests = Path("tests")
     data = tests / "data"
-    return {"base": base, "tests": tests, "data": data}
+    return {"tests": tests, "data": data}
 
 
-def test_read_celldata(tester, linux_paths):
-    paths = linux_paths
+def test_read_celldata(tester, paths):
+    paths = paths
     path = paths['data']
     file = path / "cell_data.csv"
     celldata = read_celldata(file)
@@ -40,8 +39,8 @@ def test_read_celldata(tester, linux_paths):
     assert_frame_equal(celldata_ref, celldata)
 
 
-def test_read_counts(tester, linux_paths):
-    paths = linux_paths
+def test_read_counts(tester, paths):
+    paths = paths
     path = paths['data']
     file = path / "counts.csv"
     counts = read_counts(file)
@@ -50,8 +49,8 @@ def test_read_counts(tester, linux_paths):
     assert_frame_equal(counts_ref, counts)
 
 
-def test_read_transcripts(tester, linux_paths):
-    paths = linux_paths
+def test_read_transcripts(tester, paths):
+    paths = paths
     path = paths['data']
     file = path / "cell_data.csv"
     file = path / "transcript_data.csv"
@@ -62,8 +61,8 @@ def test_read_transcripts(tester, linux_paths):
     assert_frame_equal(transcripts_ref, transcripts)
 
 
-def test_anndata(tester, linux_paths):
-    paths = linux_paths
+def test_anndata(tester, paths):
+    paths = paths
     path = paths['data']
     counts = path / "counts.csv"
     celldata = path / "cell_data.csv"
@@ -81,8 +80,7 @@ def test_anndata(tester, linux_paths):
     assert_frame_equal(adata_ref.obs, adata.obs)
     output.unlink()
 
-def test_add_probe_type(linux_paths):
-    paths = linux_paths
+def test_add_probe_type(paths):
     path = paths['data']
     adata = ad.read(path / "test.h5ad")
     hfile = path / "decode.hdf5"

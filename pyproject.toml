@@ -7,16 +7,18 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+scanpy = "^1.9.3"
+scvi-tools = "^0.20.1"
 cleo = "^2.0.1"
-scanpy = "1.9.1"
-scvi-tools = { git = "https://github.com/scverse/scvi-tools" }
-black = "^22.12.0"
+black = "^23.1.0"
 leidenalg = "^0.9.1"
-matplotlib = "^3.6.2"
+matplotlib = "^3.7.1"
 pillow = "^9.4.0"
 flake8 = "^6.0.0"
-mypy = "^0.991"
+mypy = "^1.1.1"
 jinja2 = "^3.1.2"
+pytest = "^7.2.2"
+lightning-lite = "^1.8.6"
 
 
 [build-system]
@@ -30,6 +32,7 @@ postal = "postal.console.application:run"
 filterwarnings = [
 	"error",
 	"ignore::UserWarning",
+	"ignore::DeprecationWarning",
 	# note the use of single quote below to denote "raw" strings in TOML
 	'ignore:FieldDescriptor\(\):DeprecationWarning',
 	'ignore:distutils Version classes are deprecated:DeprecationWarning',

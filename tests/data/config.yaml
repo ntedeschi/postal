@@ -1,23 +1,23 @@
 ---
 - module: mkad
   arguments:
-    counts_file: /workspace/postal/tests/data/counts.csv
-    cell_data_file: /workspace/postal/tests/data/cell_data.csv
-    transcript_data_file: /workspace/postal/tests/data/transcript_data.csv
-    decode_file: /workspace/postal/tests/data/decode.hdf5
-    outs: /workspace/postal/tests/data/outs
+    counts_file: tests/data/counts.csv
+    cell_data_file: tests/data/cell_data.csv
+    transcript_data_file: tests/data/transcript_data.csv
+    decode_file: tests/data/decode.hdf5
+    outs: tests/data/outs
     anndata_file: test.h5ad
 
 - module: qc
   arguments:
-    adata_in: /workspace/postal/tests/data/test_qc.h5ad
-    outs: /workspace/postal/tests/data/outs/qc
+    adata_in: tests/data/test_qc.h5ad
+    outs: tests/data/outs/qc
     experiment: test
     refgene: EEF2
 
 - module: filter
   arguments:
-    adata_in: /workspace/postal/tests/data/test_after_qc.h5ad
+    adata_in: tests/data/test_after_qc.h5ad
     adata_out: /tmp/use_mads.h5ad
     use_mads: True
     mads_factor: 3
@@ -25,11 +25,11 @@
 - module: latent
   arguments:
     method: scvi
-    adata_in: /workspace/postal/tests/data/test.h5ad
-    adata_out: /workspace/postal/tests/data/outs/test_latent.h5ad
+    adata_in: tests/data/test.h5ad
+    adata_out: tests/data/outs/test_latent.h5ad
     n_layers: 2
     n_latent: 3 
-    model_path: /workspace/postal/tests/data/outs/vae.model
+    model_path: tests/data/outs/vae.model
     obsm_col: X_scvi
     use_gpu: False
 
@@ -37,8 +37,8 @@
 - module: cluster
   arguments:
     method: leiden
-    adata_in: /workspace/postal/tests/data/test_latent.h5ad
-    adata_out: /workspace/postal/tests/data/outs/test_cluster.h5ad
+    adata_in: tests/data/test_latent.h5ad
+    adata_out: tests/data/outs/test_cluster.h5ad
     neighborhood: 100
     resolution: 0.5
     use_rep: X_scvi
